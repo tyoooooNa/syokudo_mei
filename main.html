@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>食堂めい</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            background: url('header-bg.jpg') no-repeat center center/cover;
+            color: #fff;
+            padding: 100px 20px;
+            text-align: center;
+            position: relative;
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #b4886b;
+        }
+        .section {
+            padding: 100px 20px;
+            display: none;
+        }
+        .active {
+            display: block;
+            text-align: center;
+        }
+        #about, #contact, #news {
+            background-color: #fff;
+        }
+        #menu {
+            background-color: #f7f7f7;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #555;
+            border-bottom: 2px solid #b4886b;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 auto;
+        }
+        li {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        li span {
+            font-weight: bold;
+            color: #777;
+        }
+        .menu-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .course-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .course-item {
+            padding: 10px 20px;
+            background-color: #b4886b;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .course-item:hover {
+            background-color: #8f6a52;
+        }
+        .menu-details {
+            display: none;
+        }
+        .menu-details.active {
+            display: block;
+        }
+        .news {
+            display: table; 
+        }
+        .news-item {
+            text-align: left; 
+            display: table-row; 
+        }
+        .news-item strong {
+            display: inline-block;
+            width: 120px; 
+            text-align: left; 
+        }
+        /* モーダルのスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* モーダルのスタイル */
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>食堂めい</h1>
+    <p>あなたの日常を彩る、美味しい料理と特別な時間を。</p>
+</header>
+
+<nav>
+    <a href="#about" onclick="showSection('about')">私たちについて</a>
+    <a href="#menu" onclick="showSection('menu')">メニュー</a>
+    <a href="#news" onclick="showSection('news')">お知らせ</a>
+    <a href="#contact" onclick="showSection('contact')">お問い合わせ</a>
+</nav>
+
+<section id="about" class="section active">
+    <h2>私たちについて</h2>
+    <p>食堂めいは、季節の素材を活かした料理と、心温まるおもてなしでお客様をお迎えします。落ち着いた雰囲気の中で、特別なひとときをお過ごしください。</p>
+    <img src="about-image.jpg" alt="私たちについてのイメージ">
+</section>
+
+<section id="menu" class="section menu">
+    <h2>メニュー</h2>
+    <div class="course-list">
+        <div class="course-item" onclick="showMenuDetails('course1')">グランドメニュー</div>
+        <div class="course-item" onclick="showMenuDetails('course2')">ドリンクメニュー</div>
+        <div class="course-item" onclick="showMenuDetails('course3')">期間限定メニュー</div>
+    </div>
+    <div id="course1" class="menu-details active">
+        <ul>
+            <li>coming-soon</li>
+        </ul>
+        <img src="menu-image1.jpg" alt="グランドメニューのイメージ">
+    </div>
+    <div id="course2" class="menu-details">
+        <ul>
+            <li><span>ウィスキー</span></li>
+            <li>サントリー角瓶</li>
+            <li>イチローズモルト</li>
+            <br /><br />
+            <li><span>焼酎</span></li>
+            <li>いいちこ（麦）</li>
+            <br /><br />
+            <li><span>自家製酒</span></li>
+            <li>梅酒（9999年）</li>
+            <li>梅酒（9999年）</li>
+            <br /><br />
+            <li><span>ソフトドリンク</span></li>
+            <li>紅茶</li>
+            <li>秦野市の水</li>
+            <li>炭酸水</li>
+        </ul>
+        <img src="menu-image2.jpg" alt="ドリンクメニューのイメージ">
+    </div>
+    <div id="course3" class="menu-details">
+        <ul>
+            <li>山梨名物　ほうとう</li>
+            <li>福岡名物　もつ鍋</li>
+        </ul>
+    </div>
+</section>
+
+<section id="news" class="section">
+    <h2>お知らせ</h2>
+    <p>最新のニュースやイベント情報をお届けします。</p>
+    <ul class="news">
+        <li class="news-item">
+            <a href="#" onclick="openModal('modal1')">
+                <strong>2024/08/29</strong> 晩夏の特別イベントを開催します。
+            </a>
+        </li>
+        <li class="news-item">
+            <strong>2024/08/23</strong> グランドメニューが新しくなりました。
+        </li>
+        <li class="news-item">
+            <strong>2024/06/09</strong> HPが公開されました。
+        </li>
+    </ul>
+</section>
+<!-- モーダルのHTML -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modal1')">&times;</span>
+        <h2>2024/08/29 晩夏の特別イベント</h2>
+        <p>今月8月29日の木曜日に山梨のワインを楽しむイベントを開催します。<br />
+            予約のみのご案内となりますので、是非お早めにご予約ください。<br />
+            <br />
+            日時：2024年8月29日（木）　13:00～16:00<br />
+            場所：本店<br />
+            料金：時価<br />
+            メニュー：<br />
+            　- カプレーゼサラダ or カルパッチョ （白ワイン）<br />
+            　- サーモンのグリル or 鶏肉のローズマリー焼き （ロゼワイン）<br />
+            　- 牛フィレ肉の赤ワインソース or ラザニア （赤ワイン）<br />
+            　- レモンムース （白ワイン）<br />
+            　- ブルーチーズ、ブドウ （赤ワイン）<br />
+            <br />
+            皆様の心よりご来店お待ちしております。<br />
+        </p>
+    </div>
+</div>
+<!-- モーダルのHTML -->
+
+<section id="contact" class="section">
+    <h2>お問い合わせ</h2>
+    <p>ご予約やお問い合わせは、以下の連絡先までお気軽にどうぞ。</p>
+    <p>電話番号: 01-2345-6789</p>
+    <p>メール: info-mei@example.com</p>
+</section>
+
+<footer>
+    <p>&copy; 2024 食堂めい. All rights reserved.</p>
+</footer>
+
+<script>
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => section.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+    }
+
+    function showMenuDetails(courseId) {
+        const details = document.querySelectorAll('.menu-details');
+        details.forEach(detail => detail.classList.remove('active'));
+        document.getElementById(courseId).classList.add('active');
+    }
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+</script>
+
+</body>
+</html>
